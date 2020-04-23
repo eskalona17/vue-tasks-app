@@ -1,8 +1,11 @@
 <template>
   <form id="app" @submit.prevent="createTask">
     <label for="tast" class="label">tarea: </label>
-    <input type="text" v-model="newTask" id="id" />{{ newTask }}
+    <input type="text" v-model="newTask" id="id" />
     <input type="submit" value="Crear tarea" />
+    <ul>
+        <li v-for="(task,i) in tasks" :key="'task' + i" :class="{completed: task.completed}">{{task.text}}</li>
+    </ul>
   </form>
 </template>
 <script>
@@ -15,7 +18,7 @@ export default {
       createTask() {
           let task = {
               text: this.newTask,
-              completed: false
+              completed: true
           };
           this.tasks.push(task);
           this.newTask = '';
@@ -25,4 +28,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.completed {
+    text-decoration: line-through;
+    color: grey;
+}
+</style>
